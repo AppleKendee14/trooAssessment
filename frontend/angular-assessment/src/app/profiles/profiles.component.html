@@ -1,0 +1,84 @@
+<div class="container">
+  <div class="row">
+
+    <form #form="ngForm" (ngSubmit)="onAdd(form.value)" #f ="ngForm" class = "myForm">
+
+    <div class="col-xs-4" style="margin-top: 30px;">
+      <span> <mat-label> *First Name </mat-label></span>
+    <input #firstName="ngModel" [(ngModel)] = "inputFirstName" id="firstName" name="firstName" class="form-control" required type="text" >
+    </div>
+
+    <div class="col-xs-4" style="margin-top: 30px;">
+      <span> <mat-label> *Last Name </mat-label></span>
+    <input #lastName="ngModel" [(ngModel)] = "inputLastName" id="lastName" name="lastName" class="form-control" required type="text">
+    </div>
+
+    <div class="col-xs-4" style="margin-top: 30px;">
+      <span> <mat-label> Middle Name </mat-label></span>
+    <input #middleName="ngModel" [(ngModel)] = "inputMiddleName" id="middleName" name="middleName" class="form-control" type="text">
+    </div>
+
+    <div class="col-xs-4" style="margin-top: 30px;">
+      <span> <mat-label> *Email </mat-label></span>
+    <input #email="ngModel" [(ngModel)] = "inputEmail" id="email" name="email" class="form-control" required type="email" ngModel email>
+    </div>
+
+    <div class="col-xs-4" style="margin-top: 30px;">
+      <span> <mat-label> *Mobile Number </mat-label></span>
+    <input #mobileNumber="ngModel" [(ngModel)] = "inputMobileNumber" id="mobileNumber" name="mobileNumber" class="form-control" required type="string">
+    </div>
+
+    <div class="col-xs-12" style="margin-top: 30px; text-align: center;">
+    <button mat-raised-button *ngIf="!isUpdate" [disabled]="!f.valid" type="submit"> Submit </button>
+    <button mat-raised-button *ngIf="isUpdate" [disabled]="!f.valid" type="button"(click)="onEdit(form.value)"style="margin-right: 30px;"> Update </button>
+    <button mat-raised-button *ngIf="isUpdate" (click)="onCancel()"> Cancel </button>
+    </div>
+
+    </form>
+  </div>
+
+  <table mat-table [dataSource]= "dataSource" class="mat-elevation-z8" style="width:100%; margin-top: 30px;" >
+
+    <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID </th>
+    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> First Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.firstName}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef> Last Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.lastName}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="middleName">
+          <th mat-header-cell *matHeaderCellDef> Middle Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.middleName}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="mobileNumber">
+          <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
+          <td mat-cell *matCellDef="let row"> {{row.mobileNumber}} </td>
+          </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let row">
+            <a (click) =  "onUpdate(row)" class = "pointer"><u>Edit</u></a>
+            <a>&nbsp; | &nbsp;</a>
+            <a (click) =  "onDelete(row.id)" class = "pointer"><u>Delete</u></a>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>
